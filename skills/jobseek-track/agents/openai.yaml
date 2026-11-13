@@ -1,0 +1,6 @@
+interface:
+  display_name: "Jobseek Track"
+  short_description: "Track applications, approvals, deadlines, and outcomes"
+  default_prompt: "Use $jobseek-track to show my applications and the next action for each."
+policy:
+  allow_implicit_invocation: true
