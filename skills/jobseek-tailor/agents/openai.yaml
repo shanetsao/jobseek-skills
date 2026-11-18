@@ -1,6 +1,0 @@
-interface:
-  display_name: "Jobseek Tailor"
-  short_description: "Create truthful, job-specific resumes and academic CVs"
-  default_prompt: "Use $jobseek-tailor to prepare a PDF and editable DOCX for this job description."
-policy:
-  allow_implicit_invocation: true
