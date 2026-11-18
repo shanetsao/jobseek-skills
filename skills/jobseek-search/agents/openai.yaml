@@ -1,6 +1,0 @@
-interface:
-  display_name: "Jobseek Search"
-  short_description: "Find and research jobs against applicant evidence"
-  default_prompt: "Use $jobseek-search to find and rank openings matching my applicant profile."
-policy:
-  allow_implicit_invocation: true
