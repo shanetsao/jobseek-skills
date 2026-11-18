@@ -1,6 +1,0 @@
-interface:
-  display_name: "Jobseek Ledger"
-  short_description: "Maintain detailed applicant facts and career goals"
-  default_prompt: "Use $jobseek-ledger to update my applicant records and identify useful missing details."
-policy:
-  allow_implicit_invocation: true
