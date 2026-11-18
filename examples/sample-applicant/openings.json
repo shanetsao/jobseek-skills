@@ -1,0 +1,303 @@
+[
+  {
+    "slug": "novacell-therapeutics-scientist-cell-therapy",
+    "title": "Scientist, Cell Therapy",
+    "employer": "NovaCell Therapeutics",
+    "reqId": "NC-2026-041",
+    "location": "Boston, MA — on-site",
+    "track": "Industry",
+    "roleFamily": "Industry R&D",
+    "status": "Awaiting review",
+    "legacyScore": null,
+    "scorecardScore": 71,
+    "coverageScore": 68,
+    "unknownShare": 12,
+    "deadline": "2027-01-15",
+    "deadlineNote": "Closes Fri Jan 15, 2027 (sample date)",
+    "salaryText": "$115,000–$145,000",
+    "sourceUrl": "https://example.com/novacell/careers/NC-2026-041",
+    "jdSummary": "Scientist, Cell Therapy (sample JD summary): design and run primary human T-cell culture and functional characterisation for an autologous cell-therapy programme — activation, expansion, multiparameter flow cytometry, cytokine profiling, and cytotoxicity assays; analyse and present data to the programme team; contribute to assay transfer documentation. PhD in cell biology, immunology, or a related field, or equivalent experience.",
+    "matched": "PhD in cell biology (Direct); primary human T-cell isolation, activation, and expansion across 12 donor lots (Direct); multiparameter flow cytometry panel design and analysis (Direct); cytokine profiling by ELISA and bead arrays (Direct); cytotoxicity assay design (Direct); assay documentation and transfer support (Transferable).",
+    "gaps": "Independent Python programming for data pipelines (never claim — see applicant profile); closed-system automated cell processing at manufacturing scale (Unknown — no ledger evidence).",
+    "whyLabel": "context",
+    "whyText": "Sample background (fictional dataset): NovaCell Therapeutics is presented in this sample as a Boston cell-therapy company expanding its discovery team alongside a new laboratory fit-out announced in sample company news. No source in the sample data states why this specific role is open — context only, not a stated reason.",
+    "reviewsText": "Sample review snapshot (fictional dataset): 3.9/5 from 212 reviews, 71% would recommend (checked 2026-11-18). Positives in the sample data: collaborative bench teams, good laboratory facilities. Negatives: shifting programme priorities, slow promotion. Anonymous and self-selected — signal, not verdict.",
+    "fitNote": "Evidence coverage 68%, Unknown 12% — scorecard 71/100. One-line fit: primary T-cell culture and functional characterisation is the applicant's core bench work; the data-pipeline programming expectation is the named gap.",
+    "packageVersion": "Resume v2 · Cover letter v1",
+    "approvalStatus": "Not approved — awaiting Sam's review of the exact package",
+    "nextAction": "Sam reviews the exact package (JD + resume + cover letter together); if approved, submit ahead of the Jan 15, 2027 sample deadline.",
+    "flags": "Programming expectation in the JD vs. the profile never-claim list — framed honestly in the package; sample deadline Jan 15, 2027",
+    "lastChecked": "2026-11-18",
+    "sortOrder": 0,
+    "interestAlignment": "aligned",
+    "postingDate": "2026-11-01",
+    "postingDateVerified": true,
+    "assessments": [
+      {
+        "id": "req-phd",
+        "text": "PhD in cell biology, immunology, or a related field",
+        "importance": "required",
+        "assessment": "direct",
+        "evidence": [
+          "Education"
+        ],
+        "rationale": "Ledger Education entry records the applicant's PhD in Cell and Molecular Biology (confirmed)."
+      },
+      {
+        "id": "req-tcell",
+        "text": "Primary human T-cell isolation, activation, and expansion",
+        "importance": "required",
+        "assessment": "direct",
+        "evidence": [
+          "Experience — current role"
+        ],
+        "rationale": "Current-role STAR entry: standardised isolation, activation, and expansion across 12 donor lots (user-attested)."
+      },
+      {
+        "id": "req-flow",
+        "text": "Multiparameter flow cytometry panel design and analysis",
+        "importance": "required",
+        "assessment": "direct",
+        "evidence": [
+          "Experience — current role"
+        ],
+        "rationale": "Current-role entry records design of a 12-colour flow panel for activation and memory markers."
+      },
+      {
+        "id": "req-cytokine",
+        "text": "Cytokine profiling by ELISA and bead arrays",
+        "importance": "required",
+        "assessment": "direct",
+        "evidence": [
+          "Skills — keyword bank"
+        ],
+        "rationale": "Keyword bank lists ELISA and bead-based cytokine profiling as the applicant's own bench skills."
+      },
+      {
+        "id": "req-cytotoxicity",
+        "text": "Cytotoxicity assay design and execution",
+        "importance": "required",
+        "assessment": "direct",
+        "evidence": [
+          "Skills — keyword bank"
+        ],
+        "rationale": "Keyword bank lists cytotoxicity assays among the applicant's bench skills."
+      },
+      {
+        "id": "req-python",
+        "text": "Independent Python programming for data pipelines",
+        "importance": "required",
+        "assessment": "gap",
+        "evidence": [],
+        "rationale": "Confirmed gap: the applicant profile never-claim list and the ledger Skills entry both state independent Python proficiency is never claimed."
+      },
+      {
+        "id": "req-closed-system",
+        "text": "Closed-system automated cell processing at manufacturing scale",
+        "importance": "required",
+        "assessment": "unknown",
+        "evidence": [],
+        "rationale": "No ledger evidence either way; recorded as Unknown in the opening's gaps, not as a confirmed gap."
+      },
+      {
+        "id": "pref-present",
+        "text": "Analyse and present data to the programme team",
+        "importance": "preferred",
+        "assessment": "direct",
+        "evidence": [
+          "Experience — current role"
+        ],
+        "rationale": "Current-role entry records presenting the rebuilt workflow's results to the team (sample STAR result)."
+      },
+      {
+        "id": "pref-donor",
+        "text": "Donor-to-donor variability analysis",
+        "importance": "preferred",
+        "assessment": "direct",
+        "evidence": [
+          "Experience — current role"
+        ],
+        "rationale": "Current-role STAR entry is built around donor-variability comparison across 12 donor lots."
+      },
+      {
+        "id": "pref-flow-standardisation",
+        "text": "Flow-cytometry standardisation panel maintenance",
+        "importance": "preferred",
+        "assessment": "direct",
+        "evidence": [
+          "Experience — earlier roles"
+        ],
+        "rationale": "Earlier-roles entry records maintaining the laboratory's flow-cytometry standardisation panel (confirmed)."
+      },
+      {
+        "id": "pref-cell-culture",
+        "text": "Mammalian cell culture",
+        "importance": "preferred",
+        "assessment": "direct",
+        "evidence": [
+          "Skills — keyword bank"
+        ],
+        "rationale": "Keyword bank lists mammalian cell culture."
+      },
+      {
+        "id": "pref-statistics",
+        "text": "Statistics-package analysis of assay data",
+        "importance": "preferred",
+        "assessment": "direct",
+        "evidence": [
+          "Skills — keyword bank"
+        ],
+        "rationale": "Keyword bank Data section lists spreadsheet and statistics-package analysis as the applicant's own."
+      },
+      {
+        "id": "pref-figures",
+        "text": "Figure preparation for reports and manuscripts",
+        "importance": "preferred",
+        "assessment": "direct",
+        "evidence": [
+          "Skills — keyword bank"
+        ],
+        "rationale": "Keyword bank Data section lists figure preparation."
+      },
+      {
+        "id": "pref-transfer-doc",
+        "text": "Assay documentation and transfer support",
+        "importance": "preferred",
+        "assessment": "transferable",
+        "evidence": [
+          "Experience — current role"
+        ],
+        "rationale": "Transferable: the applicant wrote the transfer document for one internal workflow; formal assay transfer to another site is adjacent, not identical, experience."
+      },
+      {
+        "id": "pref-training",
+        "text": "Training new starters in laboratory methods",
+        "importance": "preferred",
+        "assessment": "transferable",
+        "evidence": [
+          "Mentoring & teaching"
+        ],
+        "rationale": "Transferable: the applicant ran the institute's introductory flow-cytometry practical for new starters; programme-team training is adjacent experience."
+      },
+      {
+        "id": "pref-single-cell",
+        "text": "Single-cell dataset interpretation",
+        "importance": "preferred",
+        "assessment": "direct",
+        "evidence": [
+          "Skills — awaiting confirmation"
+        ],
+        "rationale": "Recorded as direct by the assessor, but the only cited ledger entry is pending, so the matching helper downgrades this group to Unknown until the entry is confirmed."
+      },
+      {
+        "id": "pref-in-vivo",
+        "text": "In vivo animal-model experience",
+        "importance": "preferred",
+        "assessment": "gap",
+        "evidence": [],
+        "rationale": "Confirmed gap: the ledger Skills entry lists in vivo animal-model experience under never claim."
+      },
+      {
+        "id": "pref-glp-gmp",
+        "text": "GLP/GMP manufacturing experience",
+        "importance": "preferred",
+        "assessment": "gap",
+        "evidence": [],
+        "rationale": "Confirmed gap: GLP/GMP manufacturing experience is on the applicant profile never-claim list."
+      }
+    ]
+  },
+  {
+    "slug": "north-state-university-research-fellow-immunology",
+    "title": "Research Fellow",
+    "employer": "North State University — Immunology Lab",
+    "reqId": null,
+    "location": "Boston, MA — on-site",
+    "track": "Academic",
+    "roleFamily": "Staff scientist (academic / government)",
+    "status": "Researched",
+    "legacyScore": null,
+    "scorecardScore": 76,
+    "coverageScore": 74,
+    "unknownShare": 9,
+    "deadline": null,
+    "deadlineNote": "No deadline shown — rolling until filled (sample)",
+    "salaryText": "University fellow scale (amount not stated in the sample posting)",
+    "sourceUrl": "https://example.com/north-state/careers/research-fellow-immunology",
+    "jdSummary": "Research Fellow in the Immunology Lab at North State University (sample JD summary): lead a project on how activation state shapes primary T-cell function in tissue-like culture systems; design flow-cytometry and functional assays; analyse single-cell datasets with core-facility support; contribute to manuscripts and grant progress reports; co-supervise a graduate student. PhD in immunology, cell biology, or a related field required.",
+    "matched": "PhD in cell biology (Direct); primary T-cell functional assays (Direct); multiparameter flow cytometry (Direct); manuscript record in T-cell methods (Direct); graduate-student co-supervision during doctoral training (Transferable); single-cell dataset interpretation with core support (Transferable).",
+    "gaps": "Tissue-like / organoid culture systems (Unknown — no ledger evidence); grant writing as lead author (Unknown).",
+    "whyLabel": "context",
+    "whyText": "Sample lab background (fictional dataset, label: context). The Immunology Lab at North State University is led by PI Dr. Elena Park (fictional). Stated research goals, from the sample lab website: understand how activation history and tissue context shape T-cell effector function, and turn that into more predictive in vitro models. Recent sample publications and conference abstracts (past five years, fictional dataset) cover activation-state markers in primary T cells, tissue-like culture systems, and flow-cytometry standardisation. Inferred potential directions (kept distinct from stated goals): extending the tissue-like culture work toward donor-variability studies, and pairing functional assays with single-cell profiling. No source in the sample data states why this specific fellowship is open.",
+    "reviewsText": "Sample review snapshot (fictional dataset): university employer reviews 3.7/5 from 480 reviews, 68% would recommend (checked 2026-11-18). Positives in the sample data: academic freedom, core facilities. Negatives: fixed-term contracts, pay below local industry. Anonymous and self-selected — signal, not verdict.",
+    "fitNote": "Evidence coverage 74%, Unknown 9% — scorecard 76/100. One-line fit: T-cell function in controlled culture systems is the applicant's doctoral and postdoctoral core; the lab's stated direction matches the ledger's assay strengths.",
+    "packageVersion": null,
+    "approvalStatus": null,
+    "nextAction": "If Sam selects it, tailor the full academic CV (not a 2-page resume) plus a short note on follow-on research ideas.",
+    "flags": "Academic track — full detailed CV applies; no deadline in the sample posting",
+    "lastChecked": "2026-11-18",
+    "sortOrder": 1
+  },
+  {
+    "slug": "meridian-staffing-scientist-government-client",
+    "title": "Scientist — Government Client Site",
+    "employer": "Meridian Staffing",
+    "reqId": null,
+    "location": "Boston, MA — client site",
+    "track": "Contractor",
+    "roleFamily": "Contractor roles",
+    "status": "Eligibility hold",
+    "legacyScore": null,
+    "scorecardScore": 55,
+    "coverageScore": 52,
+    "unknownShare": 18,
+    "deadline": null,
+    "deadlineNote": "No deadline shown (sample)",
+    "salaryText": "$98,000–$118,000 (sample range via the staffing firm)",
+    "sourceUrl": "https://example.com/meridian/jobs/scientist-government-client",
+    "jdSummary": "Scientist placed by Meridian Staffing at a government client site (sample JD summary): run cell-culture and flow-cytometry support for a client laboratory programme, maintain assay records to the client's documentation standard, and report progress through the staffing firm's programme manager. PhD or MS with equivalent experience in cell biology; client-site eligibility requirements apply.",
+    "matched": "Cell culture and flow-cytometry bench skills (Direct); assay record-keeping to a written standard (Transferable); programme reporting experience from core-facility work (Transferable).",
+    "gaps": "Client-site eligibility is unverified (see flags); client-specific documentation system (Unknown — no ledger evidence).",
+    "whyLabel": "unavailable",
+    "whyText": "No source found in the sample data stating why this role is open — do not claim a reason. Sample context only: the staffing firm lists several client-site science roles in the same period.",
+    "reviewsText": "Sample review snapshot (fictional dataset): 3.4/5 from 96 reviews, 61% would recommend (checked 2026-11-18). Positives in the sample data: responsive recruiters. Negatives: benefits thinner than direct employment, contract uncertainty. Anonymous and self-selected — signal, not verdict.",
+    "fitNote": "Evidence coverage 52%, Unknown 18% — scorecard 55/100. Bench fit is real, but the role stays on hold until the eligibility flag is checked against the applicant profile.",
+    "packageVersion": null,
+    "approvalStatus": null,
+    "nextAction": "Do not tailor yet — resolve the eligibility flag first (see flags), then decide.",
+    "flags": "Verify eligibility flag from applicant profile before pursuing — see profile constraints",
+    "lastChecked": "2026-11-18",
+    "sortOrder": 2
+  },
+  {
+    "slug": "quickhire-solutions-lab-technician",
+    "title": "Lab Technician",
+    "employer": "QuickHire Solutions",
+    "reqId": null,
+    "location": "Boston, MA — on-site",
+    "track": "Industry",
+    "roleFamily": "Industry R&D",
+    "status": "Screened out",
+    "legacyScore": null,
+    "scorecardScore": null,
+    "coverageScore": null,
+    "unknownShare": null,
+    "deadline": null,
+    "deadlineNote": null,
+    "salaryText": "$52,000–$64,000 (sample range)",
+    "sourceUrl": "https://example.com/quickhire/jobs/lab-technician",
+    "jdSummary": "Lab Technician in a clinical testing laboratory (sample JD summary): receive and process clinical samples, run routine analyser workflows, and document results under the laboratory's licence. A current state clinical laboratory licence is a stated requirement of the sample posting.",
+    "matched": "General laboratory technique and record-keeping (Transferable).",
+    "gaps": "Current state clinical laboratory licence (required — the applicant does not hold one; see the profile never-claim list).",
+    "whyLabel": "unavailable",
+    "whyText": "Not researched — the opening was screened out on the licence requirement before background research.",
+    "reviewsText": null,
+    "fitNote": "Screened out: role requires a current state clinical laboratory licence the applicant does not hold.",
+    "packageVersion": null,
+    "approvalStatus": null,
+    "nextAction": "None — screened out; kept on the board as the screening record.",
+    "flags": "Screened out at search time — licence requirement",
+    "lastChecked": "2026-11-18",
+    "sortOrder": 3
+  }
+]

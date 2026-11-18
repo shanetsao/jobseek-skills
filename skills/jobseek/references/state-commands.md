@@ -1,122 +1,110 @@
-# State helper commands
+# State commands: jobseek_state.py
 
-Use `scripts/jobseek_state.py` from the `jobseek` skill directory with the host's available Python 3 runtime. It requires only the standard library. Resolve all paths for the selected installation and data workspace; do not hardcode another user's paths.
+The state helper operates on the applicant-data kit (see `records.md`).
+Standard library only; no network; no hard-coded paths. Every command
+takes `--workspace` (the folder that contains `profiles/`) and
+`--profile` (the profile ID = kit folder name) **before** the
+subcommand. Exit code 0 = success, 2 = error or invalid kit; errors are
+printed as JSON on stderr, results as JSON on stdout.
 
 ```text
-python jobseek_state.py --workspace WORKSPACE --profile PROFILE_ID init --display-name NAME
-python jobseek_state.py --workspace WORKSPACE --profile PROFILE_ID show
-python jobseek_state.py --workspace WORKSPACE --profile PROFILE_ID validate
-python jobseek_state.py --workspace WORKSPACE --profile PROFILE_ID check-approval --application APP_ID
-python jobseek_state.py --workspace WORKSPACE --profile PROFILE_ID change OPERATION --input PAYLOAD.json --expected-revision N
+python3 skills/jobseek/scripts/jobseek_state.py \
+  --workspace <workspace> --profile <profile-id> <command> [options]
 ```
 
-Read `show` before changing state. Use its exact `revision` as `N`. A revision mismatch means reload and reconcile; never force an overwrite. `--input -` reads JSON from stdin, which avoids shell-escaping user text. A successful change returns only profile ID, revision, and operation. `show` contains personal information; avoid exposing it unnecessarily in tool logs.
+## init — create a kit
 
-Python interface:
+```bash
+# empty kit skeleton for a new applicant
+python3 ... --profile sam-lee init --display-name "Dr. Sam Lee"
 
-```python
-from jobseek_state import JobseekStore
-
-store = JobseekStore(workspace, profile_id)
-state = store.load()
-updated = store.change("facts", {"records": reviewed_records}, state["revision"])
-result = store.check_approval(application_id)
+# seed from an existing kit folder (e.g. the sample dataset, or a kit
+# exported from another platform)
+python3 ... --profile sam-lee init \
+  --from examples/sample-applicant
 ```
 
-The helper cannot independently authenticate user statements or approvals. Supply actual user references; never manufacture them to satisfy validation.
+Creates `profiles/<profile-id>/` with `profile.yaml`, empty-but-valid
+kit files, `packages/`, `sources/`, `history/`, and `reconciliation/`.
+With `--from`, the kit files and `packages/` are copied; a source file
+named `applicant-profile.yaml` is accepted and stored as
+`profile.yaml`. Refuses to overwrite an existing kit. The display name
+is taken from `--display-name` or from the source kit's profile.
 
-## Operations and payloads
+## show — kit summary
 
-| Operation | Required payload | Result |
-|---|---|---|
-| `source` | `id`, `profile_id`, `kind: document`, `path` to original local file; or kind `web`/`user` plus `reference` | Immutable source registration; local file copied into profile |
-| `fact` | Complete fact object from [records](records.md) | Insert or replace one fact, preserving earlier state in history |
-| `facts` | `records: [complete fact objects]` | Validate the entire batch and commit one revision |
-| `batch-facts` | `facts: [complete fact objects]` | Alias for the same batch behavior |
-| `job` | `id`, `profile_id`, `employer`, `title`, `canonical_url`, `jd_text`, `requirements` | Insert/update job; additional research fields are preserved |
-| `preferences` | `profile_id`, `values: {...}`, `user_reference` | Merge supplied preferences |
-| `answer` | `id`, `profile_id`, `question`, `text`, `fact_ids`, `scope`, `status`; `application_id` for application scope; `approval_reference` for approved bank answers | Insert/update versioned answer |
-| `application` | `id`, `profile_id`, `job_id`, `selection_reference` | Create application and its document directory with `drafting` status |
-| `materials` | See handoff below | Register a new immutable document/answer version; status becomes `awaiting_review` |
-| `approve` | `application_id`, `material_id`, `user_reference` | Bind actual applicant approval to current checked material version |
-| `revoke-approval` | `application_id`, `material_id`, `user_reference`, `reason` | Withdraw approval without deleting the material or underlying facts |
-| `status` | `application_id`, `status`; optional `checkpoint`, `evidence` | Record progress/outcome, subject to approval/submission checks |
-| `feedback` | `id`, `profile_id`, `kind`, `text`, `user_reference`, `scope`; `application_id` for application scope; `generalize_explicitly: true` for profile scope | Store scoped feedback; does not rewrite facts |
-| `search-run` | `id`, `profile_id`, `sources_checked: [...]`, plus actual scope/results/continuation fields | Append search history |
-| `reconcile-dossier` | `user_reference`, `resolution`, optional `facts: [...]` | Preserve manual dossier edits and regenerate after review |
-
-Every record insert/update supplies its own `profile_id`, matching the CLI-selected profile. Fact/job/answer updates replace that record rather than merging individual fields: load the old record, apply the intended changes, and pass the complete result. Helper-managed revision and timestamp fields are regenerated.
-
-## Document generation handoff
-
-Create the application before generating documents. Put application outputs inside its directory. When generation and actual visual review are complete, use the build manifest to assemble:
-
-```json
-{
-  "application_id": "application-001",
-  "id": "materials-v1",
-  "documents": [
-    {"path": "applications/application-001/resume.docx", "expected_sha256": "DOCX_HASH_FROM_BUILD"},
-    {"path": "applications/application-001/resume.pdf", "expected_sha256": "PDF_HASH_FROM_BUILD"}
-  ],
-  "fact_ids": ["employment-001", "achievement-001"],
-  "expected_fact_revisions": {"employment-001": 1, "achievement-001": 2},
-  "expected_fact_digests": {"employment-001": "DIGEST_FROM_BUILD", "achievement-001": "DIGEST_FROM_BUILD"},
-  "expected_job_digest": "JOB_DIGEST_FROM_BUILD",
-  "answer_ids": [],
-  "qa": {
-    "rendered_pages_reviewed": true,
-    "text_checked": true,
-    "docx_pdf_consistent": true,
-    "reference": "Actual page inspection and extraction check reference"
-  }
-}
+```bash
+python3 ... --profile sam-lee show
 ```
 
-The example's digest labels must be replaced with exact manifest values. All expected digests and revisions are required. Take `expected_fact_revisions` from manifest `fact_revisions`, `expected_fact_digests` from `fact_digests`, and `expected_job_digest` from `job_digest`. List all document fact IDs. The helper separately adds facts referenced by selected answers. Expected fact revision/digest maps describe document facts, not newly selected answer-only facts.
+Prints counts: ledger entries by fact status (and how many are usable),
+openings by status, indexed documents, answers, status events,
+blockers, and whether manual `LEDGER.md` edits are pending.
 
-Convert manifest file paths to paths relative to this profile. Set each `expected_sha256` from the manifest's corresponding file hash. The helper verifies the actual current files still match the generated/reviewed versions and requires both PDF and DOCX. Do not move files outside the application directory or register another application's output. A new version gets a new ID and should use new filenames so earlier approved files remain intact.
+## validate — full kit check
 
-Set quality flags from actual results only. Text consistency maps to `text_checked` and `docx_pdf_consistent`; a passed visual review covering all pages maps to `rendered_pages_reviewed`. Draft registration with false/missing QA is allowed, but approval is blocked. Finish QA and register a new material version before asking for approval.
-
-Only after the applicant reviews the JD, files, and exact answers, record:
-
-```json
-{"application_id":"application-001","material_id":"materials-v1","user_reference":"Applicant's actual approval of this job and material version"}
+```bash
+python3 ... --profile sam-lee validate
 ```
 
-`check-approval` returns `approved`, reasons, material ID, and the stored approval. A nonapproved result exits with code 2. Run it immediately before form work and on every resumption. `validate` also reports approval results but a draft application is not by itself an invalid profile.
+Checks, collecting **all** issues before reporting:
 
-If the applicant rejects the current package or withdraws prior approval, use `revoke-approval` with the material ID, actual user reference, and reason. Changing a tracker label alone is not a substitute for revocation. Revocation blocks the old approval even when all files remain unchanged. A later explicit `approve` operation can restore approval after review. Ordinary wording feedback does not erase facts; apply the feedback and revoke the current package when the applicant's decision requires it.
+- profile: name present; `earliest_start_visibility` is
+  `internal`/`shareable` when set.
+- ledger: every entry has a unique `section`, a `title`, a `body`, and a
+  `factStatus` in `user-attested | confirmed | pending | conflicted |
+  retired`.
+- openings: required fields (`slug`, `employer`, `title`, `status`,
+  `track`, `whyLabel`); `track`, `status`, `roleFamily`, `whyLabel`
+  against the DATA-MODEL vocabularies; scores within 0–100; deadline in
+  `YYYY-MM-DD` form; `assessments` structure (unique IDs, valid
+  importance/assessment values, evidence naming real ledger sections).
+- documents-index: required fields; the indexed file **exists** in the
+  kit; `filename` matches the path; `openingSlug` names a real opening
+  (or `master-cv`); at most one `current` document per
+  opening/kind/version/mime.
+- answers: a question and an answer; `scope` is `global` or a real
+  opening slug.
+- status-events: the opening exists; the status is a DATA-MODEL status;
+  email evidence is all three of sender/date/subject or none.
+- blockers: a title and an owner.
 
-## Page checkpoint and submission
+Exit 2 with `"valid": false` and the full issue list when anything
+fails; warnings (e.g. a package folder without `PACKAGE.md`) do not
+fail validation. Observed on the fictional sample kit: valid, with the
+single warning that `packages/master-cv/` has no `PACKAGE.md`.
 
-After filling and checking one visible page:
+## render — regenerate LEDGER.md
 
-```json
-{
-  "application_id": "application-001",
-  "status": "awaiting_applicant_action",
-  "checkpoint": {
-    "page_url": "https://employer.example/application",
-    "page_label": "Work experience",
-    "filled_fields": ["employer", "title", "start_date"],
-    "unresolved_fields": [],
-    "user_action_required": "Review this page and click Next"
-  }
-}
+```bash
+python3 ... --profile sam-lee render
 ```
 
-Do not click Next, Proceed, Continue, Submit, or use keyboard shortcuts to trigger those actions. After the user advances, inspect the new page and recheck approval before filling. Do not store password/verification-code contents in checkpoints.
+Regenerates `LEDGER.md` from `ledger.json`. Refuses (exit 2) while
+manual `LEDGER.md` edits are pending — reconcile first.
 
-An application becomes submitted only with an actual observation or applicant report:
+## snapshot / checkpoint — copy the kit into history/
 
-```json
-{"application_id":"application-001","status":"submitted","evidence":{"kind":"user_report","reference":"Applicant reported submission and supplied the confirmation reference"}}
+```bash
+python3 ... --profile sam-lee snapshot --label "before import"
 ```
 
-For a directly inspected confirmation use `kind: observed_confirmation` with the real confirmation page/receipt reference. Completing fields, attaching files, an unanswered handoff, or a browser interruption is not evidence of submission.
+Copies the kit files and `packages/` into
+`history/snapshot-<UTC timestamp>/` and writes a `manifest.json` with
+SHA-256 hashes. `checkpoint` is an alias.
 
-## Reconciliation
+## reconcile — resolve manual LEDGER.md edits
 
-If the dossier changed manually, inspect it before taking further action. Use `resolution: import_reviewed_changes` with complete corrected facts and the applicant's actual confirmation, or `resolution: reviewed_no_fact_changes` after reviewing and deciding no record changes are needed. The helper preserves the edited dossier first. Do not use reconciliation merely to silence a warning without reading the changes.
+```bash
+python3 ... --profile sam-lee reconcile \
+  --resolution reviewed_no_fact_changes
+# or, after putting reviewed fact changes into ledger.json:
+python3 ... --profile sam-lee reconcile \
+  --resolution import_reviewed_changes
+```
+
+Preserves the edited `LEDGER.md` as
+`reconciliation/LEDGER-before-<timestamp>.md`, regenerates `LEDGER.md`
+from `ledger.json`, and resets the edit baseline. It never silently
+overwrites a hand edit. If there are no pending edits it says so and
+changes nothing.

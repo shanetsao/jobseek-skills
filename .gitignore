@@ -1,0 +1,37 @@
+# jobseek-skills — keep real applicant data and build outputs out of this repo.
+# This file is a backstop, not a guarantee: always check `git status` before
+# committing. Real applicant data belongs outside this public repo, or in a
+# separate private repository.
+
+# --- Dashboard / app databases (caches seeded from the applicant-data kit) ---
+app.db
+*.db
+*.db-shm
+*.db-wal
+
+# --- Legacy v1 workflow state ---
+state.json
+
+# --- Real applicant working files (blank templates live in templates/) ---
+dossier.md
+LEDGER.md
+TRACKER.md
+# Exception: the fictional sample dataset ships its own ledger for the
+# acceptance test, and that one IS committed.
+!examples/**/LEDGER.md
+
+# --- The applicant-data kit: only its specification README is committed ---
+applicant-data/*
+!applicant-data/README.md
+
+# --- Built application packages and generated documents ---
+applications/
+**/*.docx
+**/*.pdf
+# Exception: everything under examples/ is fictional sample material and is
+# committed, including any sample documents.
+!examples/**
+
+# --- Dependencies and OS noise ---
+node_modules/
+.DS_Store

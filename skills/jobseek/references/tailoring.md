@@ -1,56 +1,59 @@
-# Tailoring and review
+# Tailoring: build an exact package from the ledger
 
-Use [shared records](records.md), [state commands](state-commands.md), and [document commands](document-commands.md). For actual artifact creation, discover and follow the available document/PDF skills and bundled runtime instead of hard-coding machine-specific tool paths.
+A package is built for one verified opening, from the ledger only, and
+is presented to the applicant as a unit: the job description, the
+tailored CV/resume, and the cover letter together.
 
-## Select truthful content
+## Before drafting
 
-Confirm the applicant, selected opening, current JD, and posting availability. Inspect usable ledger records and relevant prior feedback. If the posting has changed, update the preserved JD and treat prior approval as stale.
+1. Re-verify the JD live (official posting; see `search.md`). If the
+   posting changed or closed, stop and say so.
+2. Score the opening: record per-competency `assessments` against the
+   ledger and run the matching helper (`matching.md`). Evidence
+   coverage is the headline number; report the Unknown share and the
+   confirmed gaps with it. Below the applicant's threshold (default
+   30%), say so plainly — building anyway is the applicant's call, made
+   with the number in front of them.
+3. Check the never-claim list and every eligibility flag on the
+   opening. A requirement on the never-claim list is a Gap with that
+   reason recorded — it is never written around, softened, or implied.
 
-Build a short requirement-to-evidence mapping with supporting fact identifiers, then select the experience that best demonstrates the work. Use the JD's terminology only where it accurately describes the applicant's evidence. Do not add hidden keywords, unsupported tools, or exaggerated proficiency to increase a score.
+## Drafting rules
 
-Use full STAR stories as working material and compress them into natural accomplishment bullets. Context and responsibility may be brief; actions and supported outcomes should remain clear. Distinguish personal actions from team outcomes. Qualitative results are acceptable. Missing results require a targeted question or an applicant-reviewed omission, never invented numbers or causality.
+- **Ledger facts only.** Every claim in the CV/resume and cover letter
+  traces to a `user-attested` or `confirmed` ledger entry. Nothing is
+  added from the JD's vocabulary that the ledger does not support.
+- **STAR bullets** for experience: situation, task, action, result,
+  with the quantified results the ledger carries. Pending numbers stay
+  out until confirmed.
+- **Format follows the applicant's track**: academic roles get the full
+  detailed CV; industry roles get a 2-page resume unless the posting
+  specifies otherwise.
+- **One format standard** for all documents (the clean style in the
+  applicant's format standard: serif body font, right-aligned dates,
+  title-first role lines, hanging-indent publications, grouped skills
+  with bold labels, no tagline). Never invent a layout per package.
+- **Grammar gate (mandatory).** Every CV, resume, and cover letter gets
+  a dedicated proofreading pass before presentation. A package with a
+  known grammar error is not presented.
+- Page counts are verified on the rendered files (industry resume
+  exactly 2 pages, cover letter 1 page), not assumed from the source.
 
-Education entries, publication citations, patents, skills, awards, and certificates keep conventional factual formats. Publication and patent status must match the ledger. Do not present planned work as completed, unpublished results as peer-reviewed publications, or a patent application as a granted patent.
+## The package record
 
-## Output choices and generation
+`packages/<slug>/PACKAGE.md` records: the opening and its verified JD
+(source URL, requisition ID, deadline), the scores (coverage, Unknown
+share, scorecard), the document files by name and version (indexed in
+`documents-index.json`), the QA log (manifest, text checks, visual
+review — see `document-commands.md`), the gaps and how each was
+handled, and the **approval record**: `NOT APPROVED` until the
+applicant approves these exact files. Any edit after approval returns
+the record to not-approved and the changed files need fresh approval.
 
-Follow the employer's instructions first and the applicant's documented preferences next. Default to:
+## Presentation
 
-- Industry resume: two pages unless the target employer specifies otherwise; select relevant supported material for that length.
-- Academic CV: no fixed page cap; include the academic record relevant to the opening.
-- Clean single-column text, readable typography, conventional headings, and selectable text.
-- Both an editable DOCX and a PDF from one content source.
-
-Respect an applicant-supplied template where it fits the destination. Do not guarantee an ATS score or universal compatibility. Keep essential contact and experience content in a natural reading order, and keep internal citations, evidence tables, placeholders, drafting comments, and review instructions out of submission documents.
-
-Use the shared document helper according to its actual reference. Keep source content, fact dependencies, job/JD version, and output files linked in the application record. Preserve old approved versions rather than overwriting them with changed content.
-
-## Required document checks
-
-1. Render the latest DOCX/PDF and inspect **every page** for clipping, overlap, missing characters, awkward breaks, and legibility.
-2. Extract text and compare the documents with the intended content. Check completeness, order, names, dates, status, links, and agreement between PDF and DOCX.
-3. Verify every substantive claim against usable facts and keep any unsupported item out of the final version.
-4. Record visual review only after actually viewing every page. Generated files and text checks alone do not establish visual QA.
-5. If the renderer fails, diagnose it using the applicable artifact workflow. Do not call unrendered output submission-ready. Preserve the draft and state the specific unresolved limitation.
-
-## Applicant review and approval
-
-Present the JD (or its preserved readable copy), the PDF and DOCX, a concise evidence mapping, and open questions. The evidence mapping belongs in the review packet, not the resume.
-
-Classify feedback before saving it:
-
-- **Fact correction:** update the ledger with the applicant's statement and retain prior revisions.
-- **Wording/format preference:** preserve the fact, revise the phrasing or layout, and record the preference's stated scope.
-- **Job-specific inclusion decision:** include or omit this material for this opening without rewriting the applicant's history.
-
-Do not infer rejection reasons, approval from silence, or a universal preference from one local decision. An approved sentence is not a new source of evidence.
-
-If the applicant withdraws approval or rejects an already approved package, use the state helper's `revoke-approval` operation. Merely recording feedback or changing the visible tracker status does not revoke an approval. Ordinary wording feedback still leaves the underlying applicant facts intact.
-
-Bind explicit approval to the selected job/JD, exact artifact versions, supporting fact revisions, and reviewed answer set through the shared state helper. Any changed document, answer, JD, or dependent fact requires the current material to be checked and reviewed again before application use. Approval for one job does not transfer to another job.
-
-## Approved answer bank
-
-Save common application answers with fact dependencies, revision, and scope. Recheck facts and job relevance before reuse. A job-specific motivation answer or salary response does not become a universal answer. New or materially changed text returns to review.
-
-Do not infer work authorization, demographics, salary expectations, availability, declarations, or consent. Ask the applicant when needed. Keep formal attestations and signatures for the applicant in the portal, even if related factual information already exists in the ledger.
+Present the JD, the tailored CV/resume, and the cover letter together,
+with the scores, the gaps, and the deadline (and its practical last
+day, counting the applicant's review time). Approval is per package
+and per version; silence is not approval; approval of a similar
+package for another opening approves nothing here.

@@ -1,0 +1,11 @@
+PLACEHOLDER — in a real package this is a DOCX/PDF generated from the same content
+
+FICTIONAL SAMPLE — Resume v1 (superseded) — Dr. Sam Lee, PhD
+sam.lee@example.com · Boston, MA
+
+Summary: Cell biologist with experience in primary cell culture, flow
+cytometry, and cell-based assays. (v1 summary, replaced in v2.)
+Experience: Postdoctoral Researcher (fictional laboratory), 2021–present —
+redesigned a cell potency assay; increased throughput 3-fold.
+Research Associate (fictional laboratory), 2019–2021 — flow cytometry service.
+Education: PhD in Cell Biology, 2020 (fictional programme).

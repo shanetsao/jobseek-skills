@@ -1,0 +1,74 @@
+[
+  {
+    "openingSlug": "novacell-therapeutics-scientist-cell-therapy",
+    "packageLabel": "NovaCell Therapeutics — Cell Therapy package",
+    "kind": "package",
+    "label": "Full package notes — JD, employer background & reviews, resume + cover letter text, approval record",
+    "filename": "PACKAGE.md",
+    "relPath": "packages/novacell-therapeutics-scientist-cell-therapy/PACKAGE.md",
+    "mimeType": "text/markdown",
+    "versionLabel": "Resume v2 · Cover letter v1",
+    "isCurrent": 1,
+    "sortOrder": 0
+  },
+  {
+    "openingSlug": "novacell-therapeutics-scientist-cell-therapy",
+    "packageLabel": "NovaCell Therapeutics — Cell Therapy package",
+    "kind": "resume",
+    "label": "Tailored resume v1 (PDF)",
+    "filename": "Lee_Resume_NovaCell_Cell_Therapy_v1.pdf",
+    "relPath": "packages/novacell-therapeutics-scientist-cell-therapy/Lee_Resume_NovaCell_Cell_Therapy_v1.pdf",
+    "mimeType": "application/pdf",
+    "versionLabel": "v1",
+    "isCurrent": 0,
+    "sortOrder": 1
+  },
+  {
+    "openingSlug": "novacell-therapeutics-scientist-cell-therapy",
+    "packageLabel": "NovaCell Therapeutics — Cell Therapy package",
+    "kind": "resume",
+    "label": "Tailored resume (PDF)",
+    "filename": "Lee_Resume_NovaCell_Cell_Therapy_v2.pdf",
+    "relPath": "packages/novacell-therapeutics-scientist-cell-therapy/Lee_Resume_NovaCell_Cell_Therapy_v2.pdf",
+    "mimeType": "application/pdf",
+    "versionLabel": "v2 — current review version",
+    "isCurrent": 1,
+    "sortOrder": 2
+  },
+  {
+    "openingSlug": "novacell-therapeutics-scientist-cell-therapy",
+    "packageLabel": "NovaCell Therapeutics — Cell Therapy package",
+    "kind": "resume",
+    "label": "Tailored resume (DOCX)",
+    "filename": "Lee_Resume_NovaCell_Cell_Therapy_v2.docx",
+    "relPath": "packages/novacell-therapeutics-scientist-cell-therapy/Lee_Resume_NovaCell_Cell_Therapy_v2.docx",
+    "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "versionLabel": "v2 — current review version",
+    "isCurrent": 1,
+    "sortOrder": 3
+  },
+  {
+    "openingSlug": "novacell-therapeutics-scientist-cell-therapy",
+    "packageLabel": "NovaCell Therapeutics — Cell Therapy package",
+    "kind": "cover",
+    "label": "Cover letter (PDF)",
+    "filename": "Lee_Cover_Letter_NovaCell_v1.pdf",
+    "relPath": "packages/novacell-therapeutics-scientist-cell-therapy/Lee_Cover_Letter_NovaCell_v1.pdf",
+    "mimeType": "application/pdf",
+    "versionLabel": "v1 — current review version",
+    "isCurrent": 1,
+    "sortOrder": 4
+  },
+  {
+    "openingSlug": "master-cv",
+    "packageLabel": "Master CV — full CV in the adopted clean style",
+    "kind": "resume",
+    "label": "Master CV (PDF)",
+    "filename": "master-cv-sam-lee.pdf",
+    "relPath": "packages/master-cv/master-cv-sam-lee.pdf",
+    "mimeType": "application/pdf",
+    "versionLabel": "Clean style — sample",
+    "isCurrent": 1,
+    "sortOrder": 5
+  }
+]

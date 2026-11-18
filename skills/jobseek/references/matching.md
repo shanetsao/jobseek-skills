@@ -1,31 +1,91 @@
-# Matching helper
+# Matching: evidence coverage with jobseek_match.py
 
-Use `scripts/jobseek_match.py` from the main jobseek skill. It reads a profile through the shared state helper; it does not write scores or search the web. Persist the resulting search decisions through the state helper when needed.
+Evidence coverage is the headline fit score. It is a declared heuristic
+for ordering a search — **not** a hiring probability, and never a
+substitute for reading the posting.
 
-```sh
-python /path/to/skills/jobseek/scripts/jobseek_match.py --workspace /applicant/workspace --profile alex score --job job-001
-python /path/to/skills/jobseek/scripts/jobseek_match.py --workspace /applicant/workspace --profile alex rank
-python /path/to/skills/jobseek/scripts/jobseek_match.py --workspace /applicant/workspace --profile alex duplicates
+## Inputs: per-competency assessments
+
+The helper reads `assessments` recorded on each opening in
+`openings.json` (an additive field; see `dashboard/DATA-MODEL.md`).
+Each assessment is one competency from the posting:
+
+```json
+{
+  "id": "req-flow",
+  "text": "Multiparameter flow cytometry panel design and analysis",
+  "group_id": "optional — alternatives/umbrella grouping",
+  "importance": "required | preferred | unclassified",
+  "assessment": "direct | transferable | unknown | gap",
+  "evidence": ["ledger section names"],
+  "rationale": "why this assessment, in one or two sentences"
+}
 ```
 
-Use the available Python runtime. `--threshold` defaults to 30 and precedes the subcommand. This chosen heuristic is not a validated hiring predictor.
+Rules (carried from v1, re-based on the kit):
 
-## Requirement contract
+- **Credit:** Direct 1.0, Transferable 0.5, Unknown 0, Gap 0.
+  **Weight:** required ×2, preferred ×1, unclassified ×1.
+  Coverage = 100 × Σ(weight × credit) / Σ(weight). The Unknown share is
+  the same denominator over Unknown-weighted groups.
+- Evidence cites ledger entries **by section name**. A Direct or
+  Transferable assessment whose cited evidence is missing, or includes
+  **any** entry that is not `user-attested`/`confirmed`, is
+  **downgraded to Unknown** by the helper — partial unreviewed claims
+  cannot borrow a reviewed fact's credibility. The downgrade is
+  reported, with its reason, in the output.
+- Direct/Transferable needs a rationale; a Gap needs an explicit reason
+  (e.g. the requirement is on the applicant's never-claim list). An
+  Unknown is an absence of evidence, not a weakness — never record a
+  Gap without evidence for the gap itself.
+- Grouping: assessments sharing a `group_id`, or with identical
+  normalised text, collapse into one group (OR alternatives, or an
+  umbrella requirement with examples). The group's weight is the
+  maximum member weight; one satisfied alternative satisfies the group;
+  if none is satisfied, any Unknown member keeps the group Unknown.
+- An opening with **no** `assessments` is *unscored* (score `null`),
+  never 0%. Its recorded scores, if any, came from outside this helper
+  and are reported alongside, not replaced.
 
-Each job has `requirements`, a list of objects with unique `id`, `text`, `importance` (`required`, `preferred`, `unclassified`), `assessment` (`direct`, `transferable`, `unknown`, `gap`), `evidence_fact_ids`, and `rationale`. `group_id` is optional but essential for alternatives and examples of the same competency.
+## Commands
 
-Normalize the actual JD before scoring. An OR statement such as “Python or R” is one group. An umbrella competency and its examples belong in one group, rather than generating additional points. Truly independent requirements remain separate. The helper collapses matching group IDs and normalized identical text; it cannot recognize semantic duplication without your annotations. Preserve the original JD and requirement locators.
+Global options (`--workspace`, `--profile`, `--threshold`) come before
+the subcommand. Default threshold 30 (the workflow's apply-if-≥30%
+rule); comparison uses the unrounded score.
 
-Required groups weigh 2; preferred and unclassified groups weigh 1. A group earns 1 for direct evidence or 0.5 for justified transferable evidence. Unknown and confirmed gaps earn 0. Every cited fact must belong to this profile and have `user_attested` or `confirmed` status. A claim citing pending/conflicted/retired facts becomes unknown, even if it also cites usable facts. Evidence classification and relevance still require careful human/agent judgment; record a rationale. A gap requires explicit supporting rationale and must not be inferred from silence.
+```bash
+# score one opening
+python3 skills/jobseek/scripts/jobseek_match.py \
+  --workspace <ws> --profile <id> score --opening <slug>
 
-For OR groups, use the strongest supported alternative. If no alternative is supported and any is unknown, the group remains unknown. Keep constraints such as work authorization and applicant nonnegotiables in `constraints`, outside the numeric score. Job `interest_alignment` is `aligned`, `uncertain`, or `misaligned`, based on recorded preferences.
+# rank the whole kit
+python3 skills/jobseek/scripts/jobseek_match.py \
+  --workspace <ws> --profile <id> rank
 
-## Output and ranking
+# candidate duplicate openings
+python3 skills/jobseek/scripts/jobseek_match.py \
+  --workspace <ws> --profile <id> duplicates
+```
 
-The score is 100 × weighted evidence / total requirement weight. Eligibility uses the unrounded score. A JD with no scorable requirements is unscored, never 0% fit. Show `unknown_weight_percent` beside every score and act on `unknown_could_cross_threshold` with targeted ledger questions. Keep below-threshold/unscored candidates in the search record, not the main qualifying list.
+Ranking order: coverage (descending, unrounded), then recorded
+interest alignment (`interestAlignment`: aligned > uncertain >
+misaligned), then **verified** posting date (newest first; an
+unverified date never counts — retrieval time is not a posting date),
+then slug. Below-threshold and unscored openings are returned in their
+own lists, not dropped.
 
-One ranked list includes every found job at or above the threshold in the recorded batch, including visible constraint-conflict flags. Sort by unrounded score descending, then interest alignment (aligned, uncertain, misaligned), then verified posting date newest first; missing/unverified dates last, job ID breaks remaining ties. Populate `posting_date` with an ISO date and `posting_date_verified: true` only after verifying it. Retrieval time is not posting time.
+Duplicates are review hints only: same employer + requisition ID, same
+employer + canonical URL, or same employer + title + location. Distinct
+requisitions stay distinct; never merge on this output alone.
 
-The duplicate helper returns candidate groups; review them before merging. Distinct requisitions remain distinct. A canonical URL query can contain an actual requisition ID and is therefore preserved.
+## Worked check (fictional sample)
 
-Research every qualifying match before calling the shortlist complete. The numeric helper carries through `research` but does not validate research claims; follow [search workflow](search.md). Report actual search scope, inaccessible sources, excluded duplicates, and remaining batches. Never claim exhaustive market coverage.
+On `examples/sample-applicant/`, the NovaCell opening carries 18
+assessments (7 required, 11 preferred; total weight 25). The helper
+computes **coverage 68.0, Unknown share 12.0** (earned weight 17:
+5 required Direct, 6 preferred Direct, 2 preferred Transferable; one
+preferred recorded Direct is downgraded to Unknown because its only
+evidence is a `pending` ledger entry). This agrees exactly with the
+coverage 68 / Unknown 12 recorded on the opening and in its
+`PACKAGE.md`. The other three sample openings carry no assessments and
+report as unscored.

@@ -1,0 +1,52 @@
+# Fictional sample applicant profile — see FICTIONAL.md.
+# Filled instance of templates/applicant-profile.template.yaml for testing only.
+
+applicant:
+  full_name: "Dr. Sam Lee"
+  credential: "PhD"
+  field: "Cell biology"
+  email: "sam.lee@example.com"
+  location: "Boston, MA"
+  timezone: "America/New_York"
+
+goal:
+  statement: >-
+    Fictional sample goal: move from a postdoctoral cell biology role into a
+    scientist or research fellow position in cell therapy, immunology, or a
+    related laboratory science role, in the Boston area or remote.
+  tracks:
+    - "Industry"
+    - "Academic"
+    - "Contractor"
+    - "External"
+  role_families:
+    - "Industry R&D"
+    - "Staff scientist (academic / government)"
+    - "Contractor roles"
+  regions_preferred:
+    - "Boston, MA"
+    - "Remote"
+  salary_ideal_base_usd: 120000
+  # INTERNAL — do not include in applications or share with employers.
+  earliest_start: "2027-03-01"
+  earliest_start_visibility: "internal"
+
+constraints:
+  never_claim:
+    - "GLP/GMP manufacturing experience"
+    - "clinical laboratory licence"
+  eligibility_flags:
+    - "Contractor roles at government client sites require an eligibility check before applying"
+  # INTERNAL placeholder — fictional sample text, not a real authorisation statement.
+  work_authorization_note: >-
+    INTERNAL placeholder: fictional sample applicant; a real profile records
+    the applicant's own work authorisation position here, marked internal
+    and never copied into an application without the applicant's direction.
+
+preferences:
+  fit_threshold: 30
+  refresh:
+    weekday: "Monday"
+    time: "09:10"
+    timezone: "America/New_York"
+  document_format: "templates/FORMAT-STANDARD.md"

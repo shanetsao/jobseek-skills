@@ -1,0 +1,19 @@
+PLACEHOLDER — in a real package this is a DOCX/PDF generated from the same content
+
+FICTIONAL SAMPLE — Master CV outline — Dr. Sam Lee, PhD
+sam.lee@example.com · Boston, MA · America/New_York
+
+Profile: Cell biologist; primary cell culture, flow cytometry, cell assays.
+Education: PhD in Cell Biology, 2020 · BSc Biological Sciences, 2014.
+Experience: Postdoctoral Researcher, 2021–present · Research Associate,
+2019–2021 · (retired entry, history only) Research Technician, 2014–2016.
+Skills: 12-colour flow cytometry, potency and killing assays, cytokine
+profiling, research-scale lentiviral transduction, assay qualification.
+Publications: Fictional Journal of Cell Methods, 2024 and 2022; one
+manuscript in preparation (authorship order unresolved — do not state).
+Awards: Early Career Methods Award, 2023 (fictional).
+Presentations: Invited symposium talk, 2025 (fictional).
+Mentoring & Teaching: 3 rotation students and 2 technicians, 2022–2025.
+References: Two fictional references available on request.
+Internal constraints are NOT part of the master CV document; they live in
+the ledger and applicant profile only.

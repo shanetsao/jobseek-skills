@@ -1,0 +1,8 @@
+{
+  "entry": "client/dist/index.html",
+  "managedCronJobs": [],
+  "name": "Job Search Dashboard",
+  "platformVersion": 29,
+  "runtime": "typescript",
+  "slug": "job-search-dashboard"
+}

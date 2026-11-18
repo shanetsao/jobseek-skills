@@ -1,0 +1,12 @@
+[
+  {
+    "title": "Confirm earliest start date with current institution",
+    "detail": "Sample blocker: the applicant's earliest start date is not yet confirmed with the current institution. Compatibility of current openings with that start is unknown — do not assume an employer can wait; check each role's hiring timeline before any submission.",
+    "status": "open"
+  },
+  {
+    "title": "Obtain official transcript copy",
+    "detail": "Resolved 2026-11-18 (sample): an official transcript copy was received and filed with the sample data kit, so it is available for any application that asks for one.",
+    "status": "resolved"
+  }
+]

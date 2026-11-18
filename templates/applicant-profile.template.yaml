@@ -1,0 +1,83 @@
+# Applicant profile — template
+#
+# Copy this file into your private applicant-data kit as `profile.yaml` and
+# fill it in. Do NOT commit a filled copy to the public repo.
+#
+# Fields marked INTERNAL ONLY are for screening and planning. They never
+# appear on a CV, resume, cover letter or application answer.
+
+# ---------------------------------------------------------------------------
+# Who the applicant is, as shown on documents and in the dashboard header.
+# ---------------------------------------------------------------------------
+applicant:
+  full_name: ""            # e.g. "Sam Lee"
+  display_name: ""         # Name exactly as it should appear on documents
+  email: ""
+  phone: ""
+  location: ""             # City, state only — never a street address
+  timezone: ""             # IANA name, e.g. "America/New_York"
+  links:
+    linkedin: ""
+    google_scholar: ""     # Recorded here; not printed on industry resumes
+
+# ---------------------------------------------------------------------------
+# The goal that scopes the whole search.
+# ---------------------------------------------------------------------------
+goal:
+  # Any science-related role the applicant can realistically attain counts —
+  # the search is NOT limited to Scientist titles.
+  statement: "any science-related role realistically attainable, not Scientist titles only"
+  # Tracks searched in parallel. Government / fellowship roles are their own
+  # category, distinct from contractor roles.
+  tracks:
+    - Industry
+    - Academic
+    - Contractor
+    - External
+  # Role families in scope. Keep all that apply; delete none silently —
+  # narrowing this list is an applicant decision.
+  role_families:
+    - Industry R&D
+    - Staff scientist (academic / government)
+    - Core facilities
+    - Applications / field scientist
+    - Program management
+    - Scientific writing
+    - Tech transfer
+    - Regulatory science
+    - Contractor roles
+    - Government / fellowship
+    - Other science role
+  regions_preferred: []    # e.g. ["DC–Maryland–Virginia", "Remote"]
+  salary_ideal_base_usd: null   # Planning figure only; never guessed for an application
+  earliest_start: ""       # INTERNAL ONLY — a screening flag, not a document field
+
+# ---------------------------------------------------------------------------
+# Constraints. INTERNAL ONLY — never on documents.
+# ---------------------------------------------------------------------------
+constraints:
+  # Skills or claims that must never be presented as the applicant's own,
+  # e.g. a tool the applicant uses only with assistance. Anything listed
+  # here scores as a Gap when a posting requires it, and is never drafted.
+  never_claim: []
+  # Eligibility items to check against every posting's official text, e.g.
+  # citizenship, clearance or sponsorship statements. A verified stated
+  # disqualifier screens an opening out; an unverified one stays a flag.
+  eligibility_flags: []
+  # Free-text note on work authorisation, kept only for screening.
+  work_authorization_note: ""   # INTERNAL ONLY
+
+# ---------------------------------------------------------------------------
+# Working preferences for the workflow and dashboard.
+# ---------------------------------------------------------------------------
+preferences:
+  # Openings at or above this evidence-coverage score (unrounded) enter the
+  # ranked shortlist. See templates/FIT-SCORECARD.md.
+  fit_threshold_percent: 30
+  # Weekly search refresh. Leave timezone empty to use applicant.timezone.
+  refresh:
+    weekday: Monday
+    time: "09:10"
+    timezone: ""
+  # The one document format for every CV/resume. Do not change per build.
+  document_format: templates/FORMAT-STANDARD.md

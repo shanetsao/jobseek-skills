@@ -1,0 +1,73 @@
+@import "tailwindcss";
+@import "tailwindcss-safe-area";
+
+@theme {
+  --text-xs: 12px;
+  --text-xs--line-height: 16px;
+  --text-sm: 14px;
+  --text-sm--line-height: 20px;
+  --text-base: 16px;
+  --text-base--line-height: 24px;
+  --text-lg: 18px;
+  --text-lg--line-height: 28px;
+  --text-xl: 20px;
+  --text-xl--line-height: 28px;
+  --text-2xl: 24px;
+  --text-2xl--line-height: 32px;
+  --text-3xl: 30px;
+  --text-3xl--line-height: 36px;
+}
+
+:root {
+  color-scheme: light dark;
+  --bg: #f7f5f0;
+  --surface: #fffdf9;
+  --surface-alt: #efeadf;
+  --text: #1b2436;
+  --dim: #5b6472;
+  --border: #ddd6c6;
+  --accent: #0f766e;
+  --accent-soft: #e2efec;
+  --amber: #b45309;
+  --amber-soft: #f7ead3;
+  --red: #b91c1c;
+  --red-soft: #f8e3e1;
+  --radius: 10px;
+  --space-surface: var(--surface);
+  --space-surface-alt: var(--surface-alt);
+  --space-muted: var(--dim);
+  --space-border: var(--border);
+  --space-accent: var(--accent);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14161c;
+    --surface: #1e2129;
+    --surface-alt: #262a35;
+    --text: #ece9e0;
+    --dim: #a3aabb;
+    --border: #343947;
+    --accent: #2dd4bf;
+    --accent-soft: #173b37;
+    --amber: #f0b35c;
+    --amber-soft: #3d2f16;
+    --red: #f08a80;
+    --red-soft: #40211f;
+  }
+}
+
+.font-display {
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Phone tap targets: at least 32px tall. */
+@layer base {
+  button, [role="button"], select, summary, input:not([type="checkbox"], [type="radio"]) {
+    min-height: 2rem;
+  }
+}

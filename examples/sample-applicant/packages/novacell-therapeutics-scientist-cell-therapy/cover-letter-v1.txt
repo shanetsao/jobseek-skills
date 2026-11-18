@@ -1,0 +1,17 @@
+PLACEHOLDER — in a real package this is a DOCX/PDF generated from the same content
+
+FICTIONAL SAMPLE — Cover letter v1 (current)
+
+Dear NovaCell Therapeutics Hiring Team,
+
+I am applying for the Scientist, Cell Therapy role (NC-2026-041). In my
+postdoctoral work I redesigned a cell-based potency assay end to end,
+increasing throughput 3-fold, from 24 to 72 samples per run, and cutting the
+assay failure rate from 18% to 6% — the same mix of assay design, flow
+cytometry, and careful documentation your posting describes.
+
+I would welcome the chance to discuss how that experience fits your team's
+work. (Fictional sample letter; all details invented for testing.)
+
+Sam Lee
+sam.lee@example.com · Boston, MA

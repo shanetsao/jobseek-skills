@@ -1,0 +1,20 @@
+[
+  {
+    "emailDate": null,
+    "emailFrom": null,
+    "emailSubject": null,
+    "note": "Stage changed in the dashboard Tracker — no email evidence linked to this change.",
+    "openingSlug": "novacell-therapeutics-scientist-cell-therapy",
+    "openingTitle": "Scientist, Cell Therapy — NovaCell Therapeutics",
+    "status": "Drafting"
+  },
+  {
+    "emailDate": "2026-11-15",
+    "emailFrom": "talent@novacell.example.com",
+    "emailSubject": "Application materials — Scientist, Cell Therapy (NC-2026-041)",
+    "note": "Fictional sample: recruiter email acknowledging receipt and requesting the tailored package — recorded as evidence for the status change.",
+    "openingSlug": "novacell-therapeutics-scientist-cell-therapy",
+    "openingTitle": "Scientist, Cell Therapy — NovaCell Therapeutics",
+    "status": "Awaiting review"
+  }
+]

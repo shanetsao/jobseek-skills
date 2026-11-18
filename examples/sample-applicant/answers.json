@@ -1,0 +1,16 @@
+[
+  {
+    "question": "Why are you leaving your current position?",
+    "answer": "My current appointment is a fixed-term research position, and the project I was hired to lead is complete (sample answer). I am looking for a role where I can keep building on primary T-cell assay work — this time with a clearer path from assay development into a programme team.",
+    "scope": "universal",
+    "jobLabel": null,
+    "note": "Sample answer-bank entry (fictional) — review the exact wording before using it on any real application."
+  },
+  {
+    "question": "What is your greatest technical strength?",
+    "answer": "Designing primary human T-cell functional assays that other people can reproduce (sample answer). In my current role I rebuilt our expansion and flow-cytometry workflow so donor-to-donor variability dropped and the same protocol ran unchanged across 12 donor lots; the quantified detail lives in the ledger and is only used where it is attested.",
+    "scope": "universal",
+    "jobLabel": null,
+    "note": "Sample answer-bank entry (fictional) — quantified claims must match ledger entries at application time."
+  }
+]

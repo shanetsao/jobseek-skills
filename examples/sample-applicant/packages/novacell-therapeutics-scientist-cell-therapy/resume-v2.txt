@@ -1,0 +1,19 @@
+PLACEHOLDER — in a real package this is a DOCX/PDF generated from the same content
+
+FICTIONAL SAMPLE — Resume v2 (current) — Dr. Sam Lee, PhD
+sam.lee@example.com · Boston, MA
+
+Summary: Cell biologist specialising in reproducible cell-based potency
+assays, primary human cell culture, and multi-colour flow cytometry.
+Experience: Postdoctoral Researcher (fictional laboratory), 2021–present —
+redesigned a potency assay end to end; increased throughput 3-fold, from 24
+to 72 samples per run, and cut the assay failure rate from 18% to 6%.
+Improved cell expansion consistency across 6 donors, reducing inter-donor
+variability from 35% to 14%.
+Research Associate (fictional laboratory), 2019–2021 — cleared a 3-week flow
+cytometry backlog in 6 weeks; median turnaround fell to 3 days.
+Education: PhD in Cell Biology, 2020 (fictional programme); BSc Biological
+Sciences, 2014.
+Selected publication: 'A standardised potency assay for engineered immune
+cells', Fictional Journal of Cell Methods, 2024.
+Award: Early Career Methods Award, 2023 (fictional society meeting).

@@ -1,0 +1,114 @@
+[
+  {
+    "section": "Identity & contact",
+    "category": "Profile",
+    "body": "Dr. Sam Lee, PhD (fictional sample applicant)\nCell biologist — primary human T-cell culture, flow cytometry, and functional assay development.\nEmail: sam.lee@example.com · Location: Boston, MA\nSample data only: every fact in this ledger belongs to the fictional sample applicant and demonstrates the ledger format.",
+    "factStatus": "user-attested",
+    "sourceRef": "Sample LEDGER.md — Profile",
+    "sortOrder": 0
+  },
+  {
+    "section": "Positioning & research profile",
+    "category": "Profile",
+    "body": "Positioning line: Cell Biology | Primary T-Cell Assays | Flow Cytometry\n\nResearch profile (sample): Cell biologist specialising in primary human T-cell culture and functional characterisation. Experience spans donor-cell isolation, activation and expansion workflows, multiparameter flow panel design, cytokine profiling, and cytotoxicity assays, with a record of turning variable bench protocols into documented, transferable methods.\n\nTarget tracks: (1) Industry — Scientist, cell therapy / assay development; (2) Academic — Research Fellow / staff scientist; (3) Contractor — client-site scientist roles, subject to profile eligibility flags.",
+    "factStatus": "user-attested",
+    "sourceRef": "Sample LEDGER.md — Profile",
+    "sortOrder": 1
+  },
+  {
+    "section": "Education",
+    "category": "Education",
+    "body": "PhD, Cell and Molecular Biology — Bayview University (fictional), 2021 (sample).\nThesis: Activation-state markers in primary human T cells cultured under tissue-like conditions.\nBSc, Biological Sciences — Bayview University (fictional), 2015 (sample).",
+    "factStatus": "confirmed",
+    "sourceRef": "Sample LEDGER.md — Education",
+    "sortOrder": 2
+  },
+  {
+    "section": "Experience — current role",
+    "category": "Experience",
+    "body": "Research Scientist, Boston Institute for Cell Research (fictional), 2022–present (sample).\nSTAR: Situation — donor-to-donor variability made the team's T-cell expansion results hard to compare across studies. Task — rebuild the expansion and phenotyping workflow into one documented protocol. Action — standardised isolation, activation, and feeding steps; designed a 12-colour flow panel for activation and memory markers; wrote the transfer document. Result — expansion yield rose from 62% to 84% on average across 12 donor lots, and assay turnaround fell from 5 days to 3 days (sample figures, applicant-attested).",
+    "factStatus": "user-attested",
+    "sourceRef": "Sample LEDGER.md — Experience",
+    "sortOrder": 3
+  },
+  {
+    "section": "Experience — earlier roles",
+    "category": "Experience",
+    "body": "Postdoctoral Researcher, Bayview University (fictional), 2021–2022 (sample): activation-state marker study in primary T cells; maintained the laboratory's flow-cytometry standardisation panel.\nResearch Assistant, Bayview University (fictional), 2015–2016 (sample): cell-culture support and sample banking for two group projects.",
+    "factStatus": "confirmed",
+    "sourceRef": "Sample LEDGER.md — Experience",
+    "sortOrder": 4
+  },
+  {
+    "section": "Skills — keyword bank",
+    "category": "Skills",
+    "body": "Bench: primary human T-cell isolation / activation / expansion; multiparameter flow cytometry (panel design, compensation, analysis); ELISA and bead-based cytokine profiling; cytotoxicity assays; mammalian cell culture; assay documentation and transfer.\nData: spreadsheet and statistics-package analysis of assay data (applicant's own); figure preparation.\nNever claim (see applicant profile): independent Python programming proficiency; a current state clinical laboratory licence; in vivo animal-model experience.",
+    "factStatus": "user-attested",
+    "sourceRef": "Sample LEDGER.md — Skills",
+    "sortOrder": 5
+  },
+  {
+    "section": "Publications",
+    "category": "Publications",
+    "body": "Lee S, Park J, Nguyen T. A standardised expansion workflow reduces donor variability in primary human T-cell culture. Journal of Cellular Methods (fictional journal), 2024 (sample).\nLee S, Okafor C. Activation-state markers track with effector function in tissue-like culture. Cellular Systems Notes (fictional journal), 2022 (sample).",
+    "factStatus": "confirmed",
+    "sourceRef": "Sample LEDGER.md — Publications",
+    "sortOrder": 6
+  },
+  {
+    "section": "Awards",
+    "category": "Awards",
+    "body": "Early-Career Methods Award, Boston Institute for Cell Research internal scheme (fictional), 2024 (sample) — for the standardised T-cell expansion workflow.\nBest Poster Prize, Bayview University Graduate Research Day (fictional), 2020 (sample).",
+    "factStatus": "user-attested",
+    "sourceRef": "Sample LEDGER.md — Awards",
+    "sortOrder": 7
+  },
+  {
+    "section": "Presentations",
+    "category": "Presentations",
+    "body": "Talk (sample): “Making donor variability visible: a standardised T-cell expansion workflow.” Regional Cell Therapy Methods Meeting (fictional), 2025.\nPoster (sample): “A 12-colour activation panel for primary human T cells.” Bayview Immunology Symposium (fictional), 2023.",
+    "factStatus": "confirmed",
+    "sourceRef": "Sample LEDGER.md — Presentations",
+    "sortOrder": 8
+  },
+  {
+    "section": "Mentoring & teaching",
+    "category": "Mentoring & Teaching",
+    "body": "Co-supervised one graduate rotation student (sample, 2024): project on feeding schedules in T-cell expansion; student presented at the institute research day.\nRan the institute's introductory flow-cytometry practical for new starters (sample, 2023–present), 3 cohorts of 6–8 trainees.",
+    "factStatus": "user-attested",
+    "sourceRef": "Sample LEDGER.md — Mentoring & Teaching",
+    "sortOrder": 9
+  },
+  {
+    "section": "References",
+    "category": "References",
+    "body": "Reference 1 (sample): doctoral supervisor at Bayview University (fictional) — agreed to act as a referee; contact details held in the applicant's private data kit, not in this sample.\nReference 2 (sample): current institute group leader — agreement to act as a referee is still being confirmed, so this entry is pending and must not be used until confirmed.",
+    "factStatus": "pending",
+    "sourceRef": "Sample LEDGER.md — References",
+    "sortOrder": 10
+  },
+  {
+    "section": "Internal constraints — start date",
+    "category": "Internal Constraints",
+    "body": "Earliest start date (sample): two sample records disagree — the applicant's note says spring 2027, an older planning note says winter 2026. Marked conflicted: not usable in any application until the applicant confirms the correct date with the current institution (see the open blocker).",
+    "factStatus": "conflicted",
+    "sourceRef": "Sample LEDGER.md — Internal Constraints",
+    "sortOrder": 11
+  },
+  {
+    "section": "Internal constraints — retired notes",
+    "category": "Internal Constraints",
+    "body": "Retired (sample): an earlier preference note set a hard salary floor and excluded all contractor roles. The applicant superseded it on 2026-11-18 (sample) — contractor roles are in scope subject to eligibility flags, and salary is a preference, not a floor. Kept in the ledger as retired so the change of position stays visible; never use the retired version.",
+    "factStatus": "retired",
+    "sourceRef": "Sample LEDGER.md — Internal Constraints",
+    "sortOrder": 12
+  },
+  {
+    "section": "Skills — awaiting confirmation",
+    "category": "Skills",
+    "body": "Single-cell library preparation (sample): the applicant reports assisting on two runs at the core facility. Awaiting confirmation of the extent of hands-on involvement — pending, not usable for matching or drafting until confirmed.",
+    "factStatus": "pending",
+    "sourceRef": "Sample LEDGER.md — Skills",
+    "sortOrder": 13
+  }
+]

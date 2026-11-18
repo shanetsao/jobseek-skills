@@ -1,111 +1,122 @@
-# Shared applicant records
+# Records: the applicant-data kit is the single source of truth
 
-Read this contract before any jobseek workflow reads or changes applicant state. Use the companion [state commands](state-commands.md) rather than editing canonical JSON directly.
+v2 stores everything about one applicant in one **applicant-data kit**.
+There is no second store. (v1 used a `state.json` schema-v1 file with a
+change-operation API; in v2 a `state.json` may only ever appear as a
+**legacy import source** — read it once, convert it into kit files, and
+never treat it as a competing authority afterwards.)
 
-## Storage and ownership
+## Kit layout
 
-The applicant chooses a data workspace. Each profile is stored separately at `WORKSPACE/profiles/PROFILE_ID/`:
-
-- `state.json`: authoritative records, schema version 1.
-- `dossier.md`: generated readable view, including complete nested fact data and provenance.
-- `sources/`: preserved source files, copied without modifying originals.
-- `applications/APPLICATION_ID/`: that application's PDF, DOCX, manifests, and review material.
-- `history/revision-NNNNNN.json`: immutable snapshots of each committed state revision.
-- `reconciliation/`: preserved manual dossier edits before explicit reconciliation.
-
-Each call supplies both workspace and profile ID. There is no global active applicant. Record IDs are unique within a profile; each record also carries the same `profile_id`. Never merge profiles, reuse another applicant's answers, or ship profile data with the reusable skills. Paths stored in records are profile-relative; the helper rejects traversal and symlinks below the workspace.
-
-`state.json` has `schema_version`, `profile_id`, `revision`, `display_name`, `updated_at`, `dossier_sha256`, maps named `facts`, `jobs`, `applications`, `answers`, `sources`, a `preferences` object, and lists named `feedback`, `search_runs`, and `preference_history` (added when needed to older profiles). It is a local record format, not a public network API. Helper changes require the expected current revision and use a profile write lock and atomic file replacement.
-
-## Facts and evidence
-
-Every fact has:
-
-```json
-{
-  "id": "research-001",
-  "profile_id": "example-applicant",
-  "category": "research",
-  "data": {
-    "project": "Applicant-supplied project name",
-    "dates": {"start": "2024", "end": null},
-    "context": "Recorded context",
-    "responsibility": "Applicant's responsibility",
-    "individual_contribution": "Actual individual contribution",
-    "actions": ["Supported action"],
-    "outcomes": [],
-    "methods": [],
-    "metrics": [],
-    "collaborators": [],
-    "disclosure": "review_before_application"
-  },
-  "status": "pending",
-  "provenance": [{"kind": "document", "reference": "source-cv-001", "locator": "paragraph 24"}]
-}
+```text
+profiles/<profile-id>/
+├── profile.yaml            # applicant-profile.yaml filled in: identity,
+│                           # goal, tracks, regions, constraints, flags,
+│                           # never-claim list, preferences
+├── ledger.json             # the ledger: structured evidence entries
+├── LEDGER.md               # the readable render of ledger.json
+├── openings.json           # one object per opening (DATA-MODEL vocab)
+├── documents-index.json    # every produced document, by opening
+├── answers.json            # reusable application answers (with scope)
+├── status-events.json      # dated outcome events, incl. email evidence
+├── blockers.json           # applicant action items
+├── packages/<opening-slug>/  # PACKAGE.md + resume/cover files
+├── sources/                # preserved source material, unmodified
+├── history/                # snapshot folders (checkpoint copies)
+└── reconciliation/         # preserved LEDGER.md copies from reconcile
 ```
 
-The helper adds `revision`, `created_at`, and `updated_at`. Preserve the precision and uncertainty of source dates. `data` is flexible, so the record can retain detailed descriptions, contribution boundaries, methods, outcomes, exact citations, and status without forcing all categories into a project template.
+The dashboard (Muse Space or ChatGPT Site) reads and writes these same
+files — or a database seeded from them — never a parallel copy. The kit
+is the interchange format between platforms: it is what the applicant
+hands from one agent to another.
 
-Use categories such as employment, research, project, education, leadership, teaching, mentoring, service, technical_skill, award, scholarship, grant, publication, patent, presentation, certificate, license, and contact. Match existing categories when extending a profile. Skills should preserve the exact source term, level of experience when stated, context, and last-used date when known. Publication and patent records retain actual status; do not convert a preprint into a published article or an application into a granted patent.
+## Per-profile isolation
 
-Statuses:
+Every command and every read is scoped to one profile ID. Never read,
+merge, copy, or summarise another applicant's kit — including a spouse's
+or a sample's — into this one. The fictional sample dataset
+(`examples/sample-applicant/`) is a format example only; its contents
+must never enter a real kit.
 
-| Status | Meaning | Usable for scoring and drafting |
+## The ledger and fact statuses
+
+`ledger.json` is a list of entries. Each entry has a unique `section`
+(the evidence identifier used everywhere else), `title`, `factStatus`,
+and `body` (markdown, STAR detail for experience entries). Only two
+statuses are usable as evidence:
+
+| Status | Meaning | Usable |
 |---|---|---|
-| `user_attested` | Explicit applicant statement, with user provenance | Yes |
-| `confirmed` | Imported claim reviewed by the applicant | Yes |
-| `pending` | Extracted/imported, awaiting review | No |
-| `conflicted` | Contradictory or ambiguous evidence needs resolution | No |
-| `retired` | Preserved historical record no longer current | No |
+| `user-attested` | The applicant stated it | Yes |
+| `confirmed` | Verified against a source | Yes |
+| `pending` | Recorded, not yet confirmed | No |
+| `conflicted` | Sources disagree; needs resolution | No |
+| `retired` | Superseded; kept for history | No |
 
-`user_attested` requires provenance `{kind: "user", reference: "specific applicant statement or chat reference"}`. `confirmed` requires `review: {kind: "user_confirmation", reference: "specific review decision"}`. User approval to import a file is not confirmation of all extracted claims. A user correction is a new revision; history preserves the earlier record. Detect semantic contradictions during review and record them as `conflicted`; the helper cannot determine whether arbitrary prose contradicts another claim.
+Rules carried over from v1, unchanged in spirit:
 
-Document provenance references a registered source ID or an HTTP(S) source URL; add an exact locator when available. Source registration copies local documents into the profile and stores their hash, original path, and registration time. Registered sources are immutable: changed documents receive new source IDs.
+- Evidence-based claims cite ledger entries **by section name**. A claim
+  with no usable entry behind it is an Unknown or a Gap, never a
+  strength.
+- Never upgrade a status silently. A status changes only on the
+  applicant's word or a cited source, and the change is recorded.
+- Internal-visibility material (constraints, earliest start, salary)
+  never appears in application-facing documents.
+- Sources the applicant provides (CVs, papers, letters) are preserved
+  **unmodified** under `sources/`; the ledger is derived from them, and
+  any conflict is surfaced, not smoothed over.
 
-Store facts separately from presentation preferences and inclusion decisions. Never infer a factual correction from rejection of wording. Never create outcomes or metrics to complete a STAR story. Missing details remain absent and become targeted questions.
+## LEDGER.md and manual edits
 
-## Preferences, answers, and feedback
+`LEDGER.md` is generated from `ledger.json` by the state helper's
+`render` command. If the applicant edits `LEDGER.md` by hand, the helper
+detects the divergence (it hashes the file against the last accepted
+baseline). Recovery is explicit, never silent:
 
-Preferences include target roles, career interests, seniority, industries, locations, relocation, remote/hybrid/on-site arrangements, compensation preferences, and explicit nonnegotiables. Record only preferences supplied by the applicant; do not infer them from protected traits or source-document metadata. Each preferences update preserves the supplied values, timestamp, and explicit user reference in `preference_history`.
+1. `reconcile --resolution reviewed_no_fact_changes` — the edits were
+   presentational; the edited file is preserved under
+   `reconciliation/`, and `LEDGER.md` is regenerated.
+2. The edits contain fact changes — first put the reviewed changes into
+   `ledger.json`, then `reconcile --resolution
+   import_reviewed_changes`.
 
-Answers have `id`, `profile_id`, `question`, `text`, `fact_ids`, `scope` (`profile` or `application`), `application_id` when application-scoped, and `status` (`draft` or `approved`). Reusable approved answers also need `approval_reference`. A particular application can approve its exact answer set without promoting those answers to globally approved wording. Work authorization, demographics, salary expectations, declarations, and consent require explicit applicant input; the answer bank never guesses them.
+`render` refuses to run while manual edits are pending, so a hand edit
+can never be overwritten by accident.
 
-Feedback has `kind` (`fact_correction`, `wording`, `formatting`, or `job_decision`), `text`, `user_reference`, and `scope`. Default to application scope with its application ID. Profile-wide feedback requires `generalize_explicitly: true` and a reference showing that the applicant expressed a general preference. Recording feedback does not change facts automatically; apply explicit corrections separately.
+## Openings, documents, approvals
 
-## Jobs and search runs
+- `openings.json` uses the DATA-MODEL vocabularies for `track`,
+  `status`, `roleFamily`, and `whyLabel`. Scores recorded on an opening
+  (`coverageScore`, `unknownShare`, `scorecardScore`) come from the
+  workflow that produced them; the matching helper computes coverage
+  from the opening's `assessments` (see `matching.md`) and reports both
+  side by side — it never overwrites the recorded values.
+- `documents-index.json` points at real files under `packages/`. Every
+  index entry must name an existing file; the validator enforces this.
+  At most one document per opening/kind/version/mime is `current`.
+- A package is approved only by an **exact-package approval record**:
+  the applicant approves the exact files (by name and version) in
+  `PACKAGE.md`. Silence is not approval, approval of one package is not
+  approval of another, and any change after approval returns the package
+  to not-approved. The documents helper's manifest records file hashes
+  so "the exact files approved" is checkable, not a memory.
+- `status-events.json` records outcome changes (responded, interview,
+  rejected, …). After submission, an event may cite the recruiter email
+  that evidences it (sender, date, subject) — all three fields or none.
 
-Jobs require `id`, `profile_id`, `employer`, `title`, `canonical_url` (or null when unavailable), `jd_text`, and `requirements`. Also retain source URLs, source labels, requisition ID when present, location, stated posting/update date, retrieval/verification time, deadline, current availability, constraint flags, company research with dated citations, and interest alignment when established.
+## Snapshots
 
-Each normalized requirement uses `id`, `text`, optional `group_id`, `importance` (`required`, `preferred`, `unclassified`), `assessment` (`direct`, `transferable`, `unknown`, `gap`), `evidence_fact_ids`, and `rationale`. Preserve exact JD wording alongside normalization. Count OR alternatives as one group; do not double-count umbrella requirements and examples. Matching and research details belong to the search skill and matching helper.
+`snapshot` (alias `checkpoint`) copies the whole kit, packages included,
+into `history/snapshot-<UTC timestamp>/` with a hash manifest. Take one
+before bulk edits, imports, or a platform migration. Snapshots are
+history, not a second live copy: never edit inside one.
 
-Search runs record an ID, profile ID, `sources_checked` (including inaccessible sources), query/scope details, candidate counts, default batch size 20 unless overridden, qualifying job IDs, incomplete work, and a continuation pointer when needed. A continuation is a new run record linked to the earlier run. Do not imply that one batch covers the whole market.
+## Validation
 
-## Applications, material versions, and approval
-
-An application references an existing job and the applicant's selection. It holds status, events, checkpoint, immutable material versions, approval records, and any `review_required` reasons.
-
-Each material version freezes:
-
-- The job description, requirement set, employer/title, and application destination digest.
-- PDF and DOCX file paths and SHA-256 hashes.
-- All supporting fact revisions and fact digests, including facts backing application answers.
-- The exact selected answer records, their revisions, and digests.
-- Actual document quality checks and their reference.
-
-Material registration requires expected fact revisions, fact digests, file hashes, and the job digest from document generation. This prevents old document content from being registered against newly corrected facts and prevents changed files from reusing earlier quality checks. The digest method is SHA-256 of UTF-8 JSON with sorted keys, indent 2, `ensure_ascii=False`, and one trailing newline. The job digest includes only `id`, `profile_id`, `employer`, `title`, `canonical_url`, `jd_text`, and `requirements`.
-
-Approval requires the current material ID, a specific applicant approval reference, successful rendered-page review, text checking, and PDF/DOCX consistency checking. The helper stores approval against the immutable material digest. It cannot verify that someone actually inspected pages or gave approval; the invoking skill must supply truthful evidence of those actions.
-
-Applicant rejection or withdrawal of an approved package uses `revoke-approval`. Record the material ID, actual user reference, and reason; the revocation blocks reuse without deleting facts, documents, or prior approval history. A subsequent explicit approval after review can restore use. Merely changing a tracker status or storing wording feedback is not an approval revocation.
-
-Before uploading documents, filling forms, or resuming, call `check-approval`. Changed document files, job content, supporting facts, answer contents, source files, or unresolved dossier edits block reuse. An unrelated fact update does not invalidate an application. Submitted applications retain their historical status, while affected materials are flagged for review.
-
-States are `drafting`, `awaiting_review`, `approved`, `filling`, `awaiting_applicant_action`, `submitted`, `interview`, `offer`, `rejected`, `withdrawn`, and `closed`. Only the approval operation sets `approved`. `filling` and `awaiting_applicant_action` require current approval. `submitted` requires evidence with kind `observed_confirmation` or `user_report` and a specific reference.
-
-Checkpoints preserve current URL/page label, filled field names, unresolved fields, and the user action needed. Avoid recording credentials or unnecessary sensitive values. The browser skill must leave every progression/submission action, signatures, declarations, and consent to the applicant. The helper rejects recorded assistant progression actions, but it is not a browser permission system.
-
-## Manual edits and recovery
-
-Do not edit canonical state directly. The helper detects manually edited or missing `dossier.md`, stops updates and application approval checks, and requires explicit reconciliation. Review the changes, preserve the edited dossier, apply reviewed fact changes, then regenerate the readable view. It never silently overwrites an edited dossier.
-
-Interrupted writes may leave a source copy or an unused application directory, or a dossier/state mismatch. Preserve those files and inspect the latest state and history; do not delete history or blindly decrement revisions. Reconcile the dossier explicitly when needed. Stored history and source copies are local ordinary files, not an encrypted vault or protection against malicious local tampering.
+Run the state helper's `validate` after any bulk change and before
+handing the kit to another platform. It checks profile fields, ledger
+statuses and unique sections, opening vocabularies and score ranges,
+assessment structure, document-index file existence, answer scoping,
+status-event references, and blocker fields — and reports **all**
+problems, not just the first. See `state-commands.md`.
