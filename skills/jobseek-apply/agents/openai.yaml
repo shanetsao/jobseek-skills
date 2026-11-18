@@ -1,6 +1,0 @@
-interface:
-  display_name: "Jobseek Apply"
-  short_description: "Fill application pages with applicant-controlled steps"
-  default_prompt: "Use $jobseek-apply to fill the current page and let me review and click Continue or Submit."
-policy:
-  allow_implicit_invocation: true
